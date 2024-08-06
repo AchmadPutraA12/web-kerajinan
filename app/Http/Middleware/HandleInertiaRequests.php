@@ -36,6 +36,10 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'contact' => fn () => ContactAdmin::first(),
+            'flash' => [
+                'error' => fn () => $request->session()->get('error'),
+                'success' => fn () => $request->session()->get('success'),
+            ],
         ];
     }
 }

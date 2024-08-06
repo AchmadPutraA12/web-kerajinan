@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 import React from 'react'
-import Logo from "../../../../public/Logo/logo-transparant.png";
+import Logo from "../../../../public/Logo/Logo.png";
 
 const Footer = ({ contact }) => {
     return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../../../../public/Logo/logo-transparant-2.png";
+import Logo from "../../../../public/Logo/Logo.png";
 import { Link } from "@inertiajs/react";
 
 const Navbar = () => {
