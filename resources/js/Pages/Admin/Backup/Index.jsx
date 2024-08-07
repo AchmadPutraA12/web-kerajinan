@@ -168,17 +168,7 @@ const Index = ({ kategori, produk }) => {
         },
         {
             accessorKey: "price",
-            header: ({ column }) => (
-                <Button
-                    variant="tableHeader"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === "asc")
-                    }
-                >
-                    Harga
-                    <ArrowUpDown className="h-4 w-4" />
-                </Button>
-            ),
+            header: "Harga",
             cell: ({ row }) => (
                 <FormatRupiah value={row.getValue("price")} />
             ),
