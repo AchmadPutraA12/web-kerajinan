@@ -103,17 +103,25 @@ class KategoriProdukAdminController extends Controller
     public function destroy(string $id)
     {
         try {
-            $produk = Produk::findOrFail($id);
-
-            if ($produk->produks()->count() > 0) {
-                return Redirect::back()->with('error', 'Data kategori produk tidak dapat dihapus karena terdapat produk');
+            $produk = Produk::where('produk_ketegori_id', $id)->exists();
+            
+            if ($produk) {
+                return Redirect::back()->with('error', 'Data produk tidak dapat dihapus karena terdapat data terkait');
             }
-            $produk->delete();
-            return Redirect::back()->with('success', 'Data kategori produk berhasil dihapus');
-        } catch (ModelNotFoundException $e) {
-            return Redirect::back()->with('error', 'Data kategori produk tidak dapat dihapus karena terdapat produk');
-        }     
+
+            $kategori = KategoriProduk::findOrFail($id);
+
+            if ($kategori) {
+                $kategori->delete();
+                Redirect::back()->with('success', 'Data produk berhasil dihapus');
+            } else {
+                return Redirect::back()->with('error', 'Data produk tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return Redirect::back()->with('error', 'Terjadi kesalahan saat menghapus data produk');
+        }
     }
+
 
     public function restore($id)
     {
