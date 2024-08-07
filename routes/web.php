@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BackupController;
+use App\Http\Controllers\Admin\ContactAdminController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\KategoriProdukAdminController;
 use App\Http\Controllers\Admin\ProdukAdminController;
@@ -20,6 +21,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('kategori-produk', KategoriProdukAdminController::class)->names('kategori-produk');
     Route::resource('produk', ProdukAdminController::class)->names('produk');
     Route::resource('backup', BackupController::class)->names('backup');
+    Route::resource('kontak-admin', ContactAdminController::class)->names('kontak-admin');
 
     Route::get('/kategori-produk/backup/{id}', [KategoriProdukAdminController::class, 'restore'])->name('kategori-produk.restore');
     Route::get('/produk/backup/{id}', [ProdukAdminController::class, 'restore'])->name('produk.restore');

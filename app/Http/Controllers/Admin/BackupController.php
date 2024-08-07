@@ -13,7 +13,7 @@ class BackupController extends Controller
     public function index()
     {
         $kategori = KategoriProduk::onlyTrashed()->get();
-        $produk = Produk::onlyTrashed()->get();
+        $produk = Produk::with('kategori')->onlyTrashed()->get();
         return Inertia::render('Admin/Backup/Index', [
             'kategori' => $kategori,
             'produk' => $produk,

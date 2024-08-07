@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\KategoriProduk;
+use App\Models\Produk;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 use function Termwind\render;
@@ -100,16 +103,16 @@ class KategoriProdukAdminController extends Controller
     public function destroy(string $id)
     {
         try {
-            $kategori = KategoriProduk::find($id);
-            if ($kategori) {
-                $kategori->delete();
-                return back()->with('success', 'data kategori produk berhasil di hapus');
-            } else {
-                return back()->with('error', 'data kategori produk tidak ditemukan');
+            $produk = Produk::findOrFail($id);
+
+            if ($produk->produks()->count() > 0) {
+                return Redirect::back()->with('error', 'Data kategori produk tidak dapat dihapus karena terdapat produk');
             }
-        } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
-        }       
+            $produk->delete();
+            return Redirect::back()->with('success', 'Data kategori produk berhasil dihapus');
+        } catch (ModelNotFoundException $e) {
+            return Redirect::back()->with('error', 'Data kategori produk tidak dapat dihapus karena terdapat produk');
+        }     
     }
 
     public function restore($id)

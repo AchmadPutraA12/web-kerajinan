@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ContactAdminSeeder::class,
             KategoriSeeder::class,
+            ProdukSeeder::class,
         ]);
     }
 }
