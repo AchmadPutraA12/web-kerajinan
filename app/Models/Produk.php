@@ -13,6 +13,10 @@ class Produk extends Model
     
     protected $fillable = [
         'name',
+        'produk_ketegori_id',
+        'deskripsion',
+        'image',
+        'price'
     ];
 
     protected $dates = [
@@ -20,6 +24,6 @@ class Produk extends Model
     ];
 
     public function kategori(){
-        return $this->belongsTo(KategoriProduk::class);
+        return $this->belongsTo(KategoriProduk::class, 'produk_ketegori_id');
     }
 }
