@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
@@ -5,7 +6,10 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Button } from "@/Components/ui/button"
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'; // Importing eye icons
+import AuthLayout from '@/Layouts/AuthLayout';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -14,8 +18,35 @@ export default function Login({ status, canResetPassword }) {
         remember: false,
     });
 
+    const [showPassword, setShowPassword] = useState(false);
+
+    useEffect(() => {
+        // Retrieve email and password from local storage if remember me was checked
+        const rememberMe = localStorage.getItem('rememberMe');
+        const rememberedEmail = localStorage.getItem('rememberedEmail');
+        const rememberedPassword = localStorage.getItem('rememberedPassword');
+
+        if (rememberMe === 'true' && rememberedEmail && rememberedPassword) {
+            setData({
+                email: rememberedEmail,
+                password: rememberedPassword,
+                remember: true,
+            });
+        }
+    }, []); // Ensure this effect runs only once on component mount
+
     const submit = (e) => {
         e.preventDefault();
+
+        if (data.remember) {
+            localStorage.setItem('rememberMe', 'true');
+            localStorage.setItem('rememberedEmail', data.email);
+            localStorage.setItem('rememberedPassword', data.password); // Store password
+        } else {
+            localStorage.removeItem('rememberMe');
+            localStorage.removeItem('rememberedEmail');
+            localStorage.removeItem('rememberedPassword'); // Remove password
+        }
 
         post(route('login'), {
             onFinish: () => reset('password'),
@@ -23,72 +54,92 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <GuestLayout>
+        <AuthLayout>
             <Head title="Log in" />
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+            <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
+                {status && (
+                    <div className="mb-4 font-medium text-sm text-green-600">{status}</div>
+                )}
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        isFocused={true}
-                        onChange={(e) => setData('email', e.target.value)}
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="block mt-4">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) => setData('remember', e.target.checked)}
+                <form onSubmit={submit} className="space-y-6">
+                    <div>
+                        <Label variant="wajib" htmlFor="email">
+                            Email
+                        </Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            name="email"
+                            value={data.email}
+                            placeholder="Masukkan Email Yang Telah Terdaftar"
+                            className="mt-1 block w-full border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:border-indigo-500 transition duration-200"
+                            autoComplete="username"
+                            onChange={(e) => setData('email', e.target.value)}
                         />
-                        <span className="ms-2 text-sm text-gray-600">Remember me</span>
-                    </label>
-                </div>
+                        <InputError message={errors.email} className="mt-2 text-red-600" />
+                    </div>
 
-                <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    <div>
+                        <Label variant="wajib" htmlFor="password">
+                            Password
+                        </Label>
+                        <div className="relative mt-1">
+                            <Input
+                                id="password"
+                                type={showPassword ? 'text' : 'password'}
+                                name="password"
+                                value={data.password}
+                                placeholder="Masukkan Password Yang Telah Terdaftar"
+                                className="block w-full border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:border-indigo-500 transition duration-200 pr-10"
+                                autoComplete="current-password"
+                                onChange={(e) => setData('password', e.target.value)}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute inset-y-0 right-0 flex items-center pr-3 text-indigo-600 hover:text-indigo-800 focus:outline-none"
+                            >
+                                {showPassword ? (
+                                    <EyeSlashIcon className="h-5 w-5" aria-hidden="true" />
+                                ) : (
+                                    <EyeIcon className="h-5 w-5" aria-hidden="true" />
+                                )}
+                            </button>
+                        </div>
+                        <InputError message={errors.password} className="mt-2 text-red-600" />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                        <label className="flex items-center">
+                            <Checkbox
+                                name="remember"
+                                checked={data.remember}
+                                onChange={(e) => setData('remember', e.target.checked)}
+                            />
+                            <span className="ml-2 text-sm text-gray-600">Remember me</span>
+                        </label>
+
+                        {canResetPassword && (
+                            <Link
+                                href={route('password.request')}
+                                className="text-sm text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                                Forgot your password?
+                            </Link>
+                        )}
+                    </div>
+
+                    <div className="flex items-center justify-end mt-4">
+                        <PrimaryButton
+                            className="bg-indigo-600 hover:bg-indigo-700 focus:ring focus:ring-indigo-200 transition duration-200"
+                            disabled={processing}
                         >
-                            Forgot your password?
-                        </Link>
-                    )}
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
-                    <Button>Click me</Button>
-                </div>
-            </form>
-        </GuestLayout>
+                            Log in
+                        </PrimaryButton>
+                    </div>
+                </form>
+            </div>
+        </AuthLayout>
     );
 }

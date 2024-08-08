@@ -14,11 +14,11 @@ export default function Welcome({ contact }) {
                             Selamat Datang, di Ziqma Collection
                         </h1>
                         <h2 className="text-sm sm:text-base md:text-xl font-medium text-zinc-300">
-                            "Temukan produk impianmu di Ziqma Collection, tempat di
-                            mana impian bertemu realitas. Wujudkan aspirasi dan
-                            keinginanmu dengan koleksi produk terbaik yang kami
-                            tawarkan. Mulailah perjalananmu menuju impian yang nyata
-                            dengan Ziqma Collection."
+                            "Di sini, setiap kerang bercerita. Temukan keindahan dan keunikan kerajinan
+                            tangan yang terinspirasi oleh lautan. Setiap produk adalah karya seni yang dibuat
+                            dengan penuh cinta dan keahlian, menghadirkan sentuhan alam yang abadi ke dalam
+                            kehidupan Anda. Jelajahi koleksi kami dan bawa pulang keindahan lautan ke dalam
+                            rumah Anda."
                         </h2>
                         <Button
                             asChild
@@ -163,22 +163,6 @@ export default function Welcome({ contact }) {
                         ></iframe>
                     </div>
                 </div>{" "}
-                <div className="h-auto lg:my-40 px-20 bg-white flex justify-center items-center">
-                    <div className="flex flex-col items-center">
-                        <h2 className=" text-3xl lg:text-5xl font-extrabold text-black">
-                            Klien Kami
-                        </h2>
-                        <div className="mt-20 w-full justify-center md:gap-9  flex items-center flex-wrap gap-4 lg:gap-10">
-                            {/* {collaboration.map((item, index) => (
-                            <img
-                                className="h-16"
-                                src={`/storage/${item.image}`}
-                                alt=""
-                            />
-                        ))} */}
-                        </div>
-                    </div>
-                </div>
             </GuestLayout>
         </>
     );

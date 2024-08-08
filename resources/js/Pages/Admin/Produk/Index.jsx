@@ -10,7 +10,7 @@ import DeleteData from "@/Components/DeleteData";
 import { formatDate } from "@/lib/FormatDate"
 import { FormatRupiah } from '@arismun/format-rupiah';
 
-const Index = ({ produks, flash, kategoris }) => {
+const Index = ({ produks, flash, kategoris, auth }) => {
     // console.log(kategoris);
     const [defaultValueTabs, setDefaultValueTabs] = useState(() => {
         return localStorage.getItem("defaultValueTabs") || "add";
@@ -156,7 +156,7 @@ const Index = ({ produks, flash, kategoris }) => {
 
                 return (
                     <div className="flex items-center gap-2">
-                        <Edit product={produk} kategoris={kategoris}/>
+                        <Edit product={produk} kategoris={kategoris} />
                         <DeleteData
                             paramId={`/admin/produk/${produk.id}`}
                         />
@@ -172,6 +172,7 @@ const Index = ({ produks, flash, kategoris }) => {
             tittleHead="Kategori Produk"
             tittleDesc="Proses dan kegiatan yang dilakukan untuk mengelola data Kategori Produk dengan lebih efisien."
             flash={flash}
+            user={auth.user}
         >
             <Tabs defaultValue={defaultValueTabs} className="mt-6">
                 <TabsList className="overflow-x-auto md:overflow-hidden">
@@ -189,7 +190,7 @@ const Index = ({ produks, flash, kategoris }) => {
                     </TabsTrigger>
                 </TabsList>
                 <TabsContent value="add">
-                    <Create />
+                    <Create kategoris={kategoris} />
                 </TabsContent>
                 <TabsContent value="table">
                     <DataTableCustom

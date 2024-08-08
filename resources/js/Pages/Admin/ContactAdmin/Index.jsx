@@ -3,7 +3,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import ImageContactCenter from "../../../../../public/img/contact-center.png";
 import Edit from "./Edit";
 
-const Index = ({ contactAdmin, flash }) => {
+const Index = ({ contactAdmin, flash, auth  }) => {
     return (
         <AdminLayout
             head="kontak admin"
@@ -11,6 +11,7 @@ const Index = ({ contactAdmin, flash }) => {
                         Kontak Admin"
             tittleHead="Manajemen Kontak Admin"
             flash={flash}
+            user={auth.user}
         >
             <div className="mt-5 relative flex flex-col max-w-4xl items-center md:flex-row md:items-start gap-5 md:gap-12 rounded-lg p-5 bg-brandy-rose-100">
                 <img

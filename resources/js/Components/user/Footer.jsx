@@ -23,10 +23,11 @@ const Footer = ({ contact }) => {
                 </Link>
             </div>
             <span className=" text-center lg:max-w-4xl text-zinc-200 text-xs mt-3 leading-6 mx-6 md:text-sm lg:text-lg lg:mx-40">
-                Temukan produk impianmu di Ziqma Collection, tempat di mana
-                impian bertemu realitas. Wujudkan aspirasi dan keinginanmu
-                dengan koleksi produk terbaik yang kami tawarkan. Mulailah
-                perjalananmu menuju impian yang nyata dengan Ziqma Collection.
+                Di sini, setiap kerang bercerita. Temukan keindahan dan keunikan kerajinan
+                tangan yang terinspirasi oleh lautan. Setiap produk adalah karya seni yang dibuat
+                dengan penuh cinta dan keahlian, menghadirkan sentuhan alam yang abadi ke dalam
+                kehidupan Anda. Jelajahi koleksi kami dan bawa pulang keindahan lautan ke dalam
+                rumah Anda.
             </span>
 
             <div className="flex gap-6 text-zinc-300 lg:gap-10 mt-4 lg:my-8">

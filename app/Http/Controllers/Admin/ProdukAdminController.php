@@ -41,7 +41,40 @@ class ProdukAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'name' => 'required',
+            'produk_ketegori_id' => 'required',
+            'deskripsion' => 'required',
+            'price' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+        ]);
+
+        $foto = $request->file('image');
+        $filename = uniqid() . '.webp';
+        $path = 'product-image/' . $filename;
+
+        if (!Storage::disk('public')->exists('product-image')) {
+            Storage::disk('public')->makeDirectory('product-image');
+        }
+
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($foto->getRealPath());
+        $image->toWebp()->save(storage_path('app/public/' . $path));
+
+        $produk = Produk::create([
+            'name' => $request->name,
+            'produk_ketegori_id' => $request->produk_ketegori_id,
+            'deskripsion' => $request->deskripsion,
+            'price' => $request->price,
+            'image' => $path,
+        ]);
+
+        if ($produk) {
+            return back()->with('success', 'data Produk berhasil ditambahkan');
+        } else {
+            return back()->with('error', 'data Produk gagal ditambahkan');
+        }
     }
 
     /**
@@ -72,7 +105,7 @@ class ProdukAdminController extends Controller
                 'produk_ketegori_id' => 'required',
                 'deskripsion' => 'required',
                 'price' => 'required',
-                'image' => 'required',
+                'image' => 'nullable|mimes:png,jpg,jpeg,webp|max:2048',
             ]);
 
             $product = Produk::find($id);
