@@ -39,10 +39,10 @@ const sidebarItems = [
         href: "/admin/kategori-produk",
         icon: <SquareGanttChart size={20} />,
     },
-    { 
-        label: "Produk", 
-        href: "/admin/produk", 
-        icon: <Package size={20} /> 
+    {
+        label: "Produk",
+        href: "/admin/produk",
+        icon: <Package size={20} />
     },
     { separator: true, label: "Pengaturan" },
     {
@@ -57,7 +57,7 @@ const sidebarItems = [
     },
 ];
 
-const AdminLayout = ({ head, children, tittleHead, tittleDesc, flash }) => {
+const AdminLayout = ({ head, children, tittleHead, tittleDesc, flash, user }) => {
     const [handleSmallScreen, setHandleSmallScreen] = useState(() => {
         const storedValue = localStorage.getItem("handleSmallScreen");
         return storedValue ? JSON.parse(storedValue) : true;
@@ -99,7 +99,7 @@ const AdminLayout = ({ head, children, tittleHead, tittleDesc, flash }) => {
     return (
         <>
             <Head title={"admin - " + head} />
-            <NavbarAdmin searchTerm="searchTerm" />
+            <NavbarAdmin searchTerm="searchTerm" user={user} />
             <aside
                 className={`
                     p-4 hidden z-[100] border-r-2 lg:z-10 lg:flex  flex-col top-0 gap-4 h-screen fixed left-0 bg-gray-950 

@@ -90,7 +90,6 @@ export default function DataTableCustom({ columns, data }) {
                         onChange={(e) => {
                             table.setPageSize(Number(e.target.value));
                         }}
-                        defaultValue={10}
                     >
                         {[10, 20, 50, 100, 200].map((pageSize) => (
                             <option

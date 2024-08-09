@@ -9,7 +9,7 @@ import Edit from "./Edit";
 import DeleteData from "@/Components/DeleteData";
 import {formatDate} from "@/lib/FormatDate"
 
-const Index = ({ kategori, flash }) => {
+const Index = ({ kategori, flash, auth }) => {
   const [defaultValueTabs, setDefaultValueTabs] = useState(() => {
     return localStorage.getItem("defaultValueTabs") || "add";
   });
@@ -90,6 +90,7 @@ const Index = ({ kategori, flash }) => {
       tittleHead="Kategori Produk"
       tittleDesc="Proses dan kegiatan yang dilakukan untuk mengelola data Kategori Produk dengan lebih efisien."
       flash={flash}
+      user={auth.user}
     >
       <Tabs defaultValue={defaultValueTabs} className="mt-6">
         <TabsList className="overflow-x-auto md:overflow-hidden">

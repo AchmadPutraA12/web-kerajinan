@@ -48,10 +48,10 @@ const sidebarItems = [
         href: "/admin/kategori-produk",
         icon: <SquareGanttChart size={20} />,
     },
-    { 
-        label: "Produk", 
-        href: "/admin/produk", 
-        icon: <Package size={20} /> 
+    {
+        label: "Produk",
+        href: "/admin/produk",
+        icon: <Package size={20} />
     },
     { separator: true, label: "Pengaturan" },
     {
@@ -66,7 +66,8 @@ const sidebarItems = [
     },
 ];
 
-const NavbarAdmin = () => {
+const NavbarAdmin = ({ user }) => {
+
     return (
         <nav className="w-full h-20 z-[100] lg:z-10 bg-gray-900 lg:bg-gray-50 items-center top-0 fixed flex p-4 justify-between lg:justify-end">
             <div className="flex items-center gap-1 lg:hidden">
@@ -119,10 +120,10 @@ const NavbarAdmin = () => {
                         />
                         <div className="flex-col w-auto hidden md:flex">
                             <span className="text-sm font-semibold line-clamp-1 text-white lg:text-black">
-                                {/* {user.name} */}
+                                {user.name}
                             </span>
                             <span className="text-xs font-medium text-gray-400">
-                                {/* {user.email} */}
+                                {user.email}
                             </span>
                         </div>
                         <svg
@@ -147,7 +148,7 @@ const NavbarAdmin = () => {
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <Link href="/profile">
+                        <Link href={route("admin.profile.edit")}>
                             <DropdownMenuItem className="cursor-pointer">
                                 <User className="mr-2 h-4 w-4" />
                                 <span>Profile</span>

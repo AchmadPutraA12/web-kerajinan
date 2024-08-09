@@ -17,7 +17,7 @@ const DeleteDataPermanent = ({ id, paramLink }) => {
     const [showModal, setShowModal] = useState(false);
     return (
         <AlertDialog open={showModal} onOpenChange={setShowModal}>
-            <AlertDialogTrigger>
+            <AlertDialogTrigger asChild>
                 <button
                     onClick={() => setShowModal(true)}
                     className="text-xs bg-red-100 px-4 py-2 rounded-md text-red-500 border border-red-500 hover:bg-red-200 hover:text-gray-white hover:border-gray-400"
@@ -37,20 +37,20 @@ const DeleteDataPermanent = ({ id, paramLink }) => {
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel className="p-0">
+                    <AlertDialogCancel asChild>
                         <Button variant={"cancel"}>Cancel</Button>
                     </AlertDialogCancel>
-                    <button onClick={() => setShowModal(false)}>
+                    <AlertDialogAction asChild>
                         <Link
                             preserveState
-                            className=" bg-blue-500 px-4 py-2.5 rounded-md text-white border-gray-400 hover:bg-blue-600 hover:text-gray-white hover:border-gray-400"
+                            className="bg-blue-500 px-4 py-2.5 rounded-md text-white border-gray-400 hover:bg-blue-600 hover:text-gray-white hover:border-gray-400"
                             type="button"
                             method="get"
                             href={route(paramLink, id)}
                         >
                             Hapus Permanen
                         </Link>
-                    </button>
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

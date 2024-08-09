@@ -4,13 +4,9 @@ import { Link } from '@inertiajs/react'
 import { Banknote, ChevronRight, Package, Users2Icon } from 'lucide-react'
 import React from 'react'
 
-const Index = () => {
+const Index = ({ auth, flash }) => {
   return (
-    <AdminLayout
-      head="Dashboard"
-      tittleHead="Dashboard"
-      tittleDesc="Terhubung dengan berbagai fitur dan pengaturan untuk mengelola situs ini dengan lebih efisien."
-    >
+    <AdminLayout user={auth.user} flash={flash}>
       <div className="gap-4 mt-3 w-full flex-col  md:flex-row flex 5 rounded-md shadow-sm">
         <div className="flex flex-col gap-2 p-4 lg:w-1/2 bg-zinc-200">
           <Banknote className="size-8" />

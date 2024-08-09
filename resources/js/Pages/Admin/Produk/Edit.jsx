@@ -70,8 +70,9 @@ const Edit = ({ product, kategoris }) => {
           <DialogHeader>
             <DialogTitle className="py-3 text-xl">Update Product</DialogTitle>
           </DialogHeader>
+
           <div className="bg-white mt-2">
-            <form onSubmit={submit}>
+            <form onSubmit={submit} encType="multipart/form-data">
               <div className="flex flex-col gap-4">
                 <div className="mb-4 flex flex-col gap-2">
                   <div className="flex items-center w-full justify-center mt-2">
@@ -87,6 +88,7 @@ const Edit = ({ product, kategoris }) => {
                   </div>
                   <span className="text-red-600">{errors.image}</span>
                 </div>
+
                 <SelectOptionCustom
                   optionName="Pilih Kategori Produk"
                   htmlFor="produk_ketegori_id"
@@ -107,13 +109,13 @@ const Edit = ({ product, kategoris }) => {
                     onChange: (e) => {
                       setData({
                         ...data,
-                        produk_ketegori_id
-                          : e.target.value,
+                        produk_ketegori_id: e.target.value,
                       });
                     },
                   }}
                   className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+
                 <InputTextLabelEdit
                   labelFor="name"
                   variant="wajib"
@@ -130,6 +132,7 @@ const Edit = ({ product, kategoris }) => {
                 >
                   <Bed className="size-5 text-gray-600 absolute z-10 top-2.5 left-2.5" />
                 </InputTextLabelEdit>
+
                 <InputTextLabelEdit
                   labelFor="deskripsion"
                   variant="wajib"
@@ -146,6 +149,7 @@ const Edit = ({ product, kategoris }) => {
                 >
                   <Bed className="size-5 text-gray-600 absolute z-10 top-2.5 left-2.5" />
                 </InputTextLabelEdit>
+
                 <InputTextLabelEdit
                   labelFor="price"
                   labelText="Harga"

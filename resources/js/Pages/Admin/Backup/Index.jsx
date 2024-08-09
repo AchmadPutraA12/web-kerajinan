@@ -2,12 +2,8 @@ import React, { useEffect, useState } from 'react';
 import DataTableCustom from '@/Components/DataTableCustom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/Components/ui/tabs';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Button } from "@/Components/ui/button";
-import { ArrowUpDown } from "lucide-react";
-import { formatDate } from "@/lib/FormatDate";
-import { Link } from "@inertiajs/react";
-import DeleteDataPermanent from "@/Components/DeleteDataPermanent";
-import { FormatRupiah } from '@arismun/format-rupiah';
+import kategoriColumns from '@/Pages/Admin/Backup/Colum/Kategori';
+import produkColumns from '@/Pages/Admin/Backup/Colum/Produk';
 
 const Index = ({ kategori, produk }) => {
     const [defaultValueTabs, setDefaultValueTabs] = useState(() => {
@@ -17,206 +13,6 @@ const Index = ({ kategori, produk }) => {
     useEffect(() => {
         localStorage.setItem("defaultValueTabsBackup", defaultValueTabs);
     }, [defaultValueTabs]);
-
-    const columnsKategori = [
-        {
-            id: "No",
-            header: "No",
-            cell: (info) => info.row.index + 1,
-            enableSorting: false,
-            enableHiding: false,
-            sortUndefined: false,
-        },
-        {
-            accessorKey: "name",
-            header: ({ column }) => (
-                <Button
-                    variant="tableHeader"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === "asc")
-                    }
-                >
-                    Nama
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            ),
-            sortingFn: "text",
-        },
-        {
-            accessorKey: "created_at",
-            header: ({ column }) => (
-                <Button
-                    variant="tableHeader"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === "asc")
-                    }
-                >
-                    Dibuat
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            ),
-            cell: ({ row }) => (
-                <span>{formatDate(row.getValue("created_at"))}</span>
-            ),
-        },
-        {
-            id: "actions",
-            enableHiding: false,
-            header: "Actions",
-            cell: ({ row }) => {
-                const kategori = row.original;
-                return (
-                    <div className="flex items-center gap-2">
-                        <Link
-                            preserveScroll
-                            preserveState
-                            className="text-xs font-semibold bg-green-100 border border-green-500 px-4 py-2 rounded-md text-green-500  hover:bg-green-200 hover:text-gray-white hover:border-gray-400"
-                            type="button"
-                            method="get"
-                            href={route(
-                                "admin.kategori-produk.restore",
-                                kategori.id
-                            )}
-                        >
-                            Restore
-                        </Link>
-                        <DeleteDataPermanent
-                            paramLink="admin.kategori-produk.delete"
-                            id={kategori.id}
-                        />
-                    </div>
-                );
-            },
-        },
-    ];
-
-    const columnsProduk = [
-        {
-            id: "No",
-            header: "No",
-            cell: (info) => info.row.index + 1,
-            enableSorting: false,
-            enableHiding: false,
-            sortUndefined: false,
-        },
-        {
-            id: "kategori.name",
-            accessorKey: "kategori.name",
-            header: ({ column }) => (
-                <Button
-                    variant="tableHeader"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === "asc")
-                    }
-                >
-                    Kategori
-                    <ArrowUpDown className="h-4 w-4" />
-                </Button>
-            ),
-            cell: ({ row }) => (
-                <span className=" bg-yellow-200 rounded-lg px-4 py-1">
-                    {row.original.kategori.name}
-                </span>
-            ),
-            sortingFn: "text",
-        },
-        {
-            accessorKey: "name",
-            header: ({ column }) => (
-                <Button
-                    variant="tableHeader"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === "asc")
-                    }
-                >
-                    Nama
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            ),
-            sortingFn: "text",
-        },
-        {
-            id: "deskripsion",
-            accessorKey: "deskripsion",
-            header: ({ column }) => (
-                <Button
-                    variant="tableHeader"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === "asc")
-                    }
-                >
-                    Deskripsi
-                    <ArrowUpDown className="h-4 w-4" />
-                </Button>
-            ),
-            sortingFn: "text",
-        },
-        {
-            accessorKey: "image",
-            header: "Gambar",
-            cell: ({ row }) => (
-                <img
-                    className="size-32 md:size-20 rounded-lg object-contain"
-                    src={
-                        window.location.origin +
-                        "/storage/" +
-                        row.getValue("image")
-                    }
-                    alt=""
-                />
-            ),
-        },
-        {
-            accessorKey: "price",
-            header: "Harga",
-            cell: ({ row }) => (
-                <FormatRupiah value={row.getValue("price")} />
-            ),
-        },
-        {
-            accessorKey: "created_at",
-            header: ({ column }) => (
-                <Button
-                    variant="tableHeader"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === "asc")
-                    }
-                >
-                    Dibuat
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            ),
-            cell: ({ row }) => (
-                <span>{formatDate(row.getValue("created_at"))}</span>
-            ),
-        },
-        {
-            id: "actions",
-            enableHiding: false,
-            header: "Actions",
-            cell: ({ row }) => {
-                const produk = row.original;
-                return (
-                    <div className="flex items-center gap-2">
-                        <Link
-                            preserveScroll
-                            preserveState
-                            className="text-xs font-semibold bg-green-100 border border-green-500 px-4 py-2 rounded-md text-green-500 hover:bg-green-200 hover:text-gray-white hover:border-gray-400"
-                            type="button"
-                            method="get"
-                            href={route("admin.produk.restore", produk.id)}
-                        >
-                            Restore
-                        </Link>
-                        <DeleteDataPermanent
-                            paramLink="admin.produk.delete"
-                            id={produk.id}
-                        />
-                    </div>
-                );
-            },
-        },
-    ];
 
     return (
         <Tabs defaultValue={defaultValueTabs} className="mt-6">
@@ -257,10 +53,10 @@ const Index = ({ kategori, produk }) => {
                 </TabsTrigger>
             </TabsList>
             <TabsContent value="produkKategori" className="mt-32 lg:mt-0">
-                <DataTableCustom data={kategori} columns={columnsKategori} />
+                <DataTableCustom data={kategori} columns={kategoriColumns} />
             </TabsContent>
             <TabsContent value="produk" className="mt-32 lg:mt-0">
-                <DataTableCustom data={produk} columns={columnsProduk} />
+                <DataTableCustom data={produk} columns={produkColumns} />
             </TabsContent>
         </Tabs>
     );
@@ -273,6 +69,7 @@ Index.layout = (page) => (
         tittleDesc="Terhubung dengan berbagai fitur dan pengaturan untuk Backup data Database."
         tittleHead="Manajemen Backup Data"
         flash={page.props.flash}
+        user={page.props.auth.user}
     />
 );
 
