@@ -11,7 +11,7 @@ export default function Welcome({ contact }) {
                 <div className="w-full relative z-10 h-screen bg-[#09090C] grid grid-cols-1 lg:grid-cols-2">
                     <div className="flex flex-col gap-4 z-30 justify-center h-screen lg:max-w-3xl px-10 md:px-14 lg:px-20">
                         <h1 className=" text-3xl md:text-5xl lg:text-6xl font-bold text-zinc-200">
-                            Selamat Datang, di Ziqma Collection
+                            Selamat Datang, di Mekar Sari
                         </h1>
                         <h2 className="text-sm sm:text-base md:text-xl font-medium text-zinc-300">
                             "Di sini, setiap kerang bercerita. Temukan keindahan dan keunikan kerajinan
