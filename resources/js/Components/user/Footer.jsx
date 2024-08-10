@@ -63,7 +63,7 @@ const Footer = ({ contact }) => {
             <div className="flex w-full justify-between items-center mt-5">
                 <span className=" w-1/3 bg-black h-12 rounded-tr-full"></span>
                 <span className=" text-xs text-center text-gray-300">
-                    Copyright © 2024, ZIQMA COLLECTION
+                    Copyright © 2024, MEKAR SARI
                 </span>
                 <span className=" w-1/3 bg-black h-12 rounded-tl-full"></span>
             </div>
