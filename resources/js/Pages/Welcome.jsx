@@ -34,11 +34,11 @@ export default function Welcome({ contact }) {
                             </Link>
                         </Button>
                     </div>
-                    <img
+                    {/*<img
                         className=" absolute left-1/2 z-20 -translate-x-1/2 -bottom-24 lg:block lg:relative lg:left-0 lg:-translate-x-0 lg:bottom-0 opacity-60 lg:opacity-100"
                         src={Gedung}
                         alt=""
-                    />
+                    />*/}
                 </div>{" "}
                 <div className="h-auto my-10 md:my-20 lg:my-40 bg-white flex justify-center items-center">
                     <div className="flex flex-col items-center">
@@ -66,12 +66,11 @@ export default function Welcome({ contact }) {
                                 </svg>
                                 <div className="flex flex-col gap-2 mt-4">
                                     <span className="text-lg font-semibold">
-                                        Dream Room Elegance
+                                        ShellCraft Elegance
                                     </span>
                                     <span className="text-zinc-500 font-medium">
                                         {" "}
-                                        Kami mengutamakan kenyamanan dan keindahan
-                                        di setiap sisi ruang
+                                        Kami menyajikan keindahan alami dan sentuhan seni di setiap karya kerajinan
                                     </span>
                                 </div>
                             </div>{" "}
@@ -94,8 +93,7 @@ export default function Welcome({ contact }) {
                                     </span>
                                     <span className="text-zinc-500 font-medium">
                                         {" "}
-                                        Kami selalu menjaga kualitas produk tetap
-                                        baik hingga ke tangan konsumen
+                                        Kami menjaga standar tertinggi di setiap tahap proses pembuatan
                                     </span>
                                 </div>
                             </div>{" "}
@@ -133,11 +131,9 @@ export default function Welcome({ contact }) {
                                 Kontak Kami
                             </h2>
                             <span className="text-xl mt-4 lg:mt-10  font-medium text-zinc-500">
-                                Jika Anda ingin memberikan kami masukan, jangan ragu
-                                untuk menghubungi kami. Kami selalu senang mendengar
-                                dari Anda!
+                                Kami selalu terbuka untuk masukan dan saran dari Anda! 
                             </span>{" "}
-                            <span className="text-xl lg:text-3xl mt-8 font-semibold text-black">
+                            {/*<span className="text-xl lg:text-3xl mt-8 font-semibold text-black">
                                 Informasi Alamat Perusahaan
                             </span>
                             <div className="flex flex-col mt-6 gap-2">
@@ -154,13 +150,13 @@ export default function Welcome({ contact }) {
                             <div className="flex flex-col mt-4 gap-2">
                                 <span>Jawa Timur 60113</span>
                                 <hr />
-                            </div>
+                            </div>*/}
                         </div>
-                        <iframe
+                        {/*<iframe
                             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15831.451945720195!2d112.7926541!3d-7.2564305!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f99ecba85e87%3A0x634c6570d194fd0d!2sZiqma%20collection!5e0!3m2!1sid!2sid!4v1716754660990!5m2!1sid!2sid"
                             className="px-6 w-[340px] h-[280px] md:size-[400px] lg:size-[450px]"
                             loading="lazy"
-                        ></iframe>
+                        ></iframe>*/}
                     </div>
                 </div>{" "}
             </GuestLayout>
