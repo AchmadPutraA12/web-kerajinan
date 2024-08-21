@@ -4,12 +4,12 @@ import Logo from "../../../../public/Logo/Logo.png";
 
 const Footer = ({ contact }) => {
     return (
-        <footer className=" w-full items-center bg-black/[0.98] flex flex-col gap-2 lg:pt-16">
-            <img src={Logo} className="w-32" alt="" />
-            <div className="flex font-semibold text-white gap-5 mt-2   p-4 text-xs md:text-sm lg:text-lg">
+        <footer className=" w-full items-center bg-[#FFEEAD] flex flex-col gap-2 lg:pt-16">
+            <img src={Logo} className="w-32 mt-5" alt="" />
+            <div className="flex font-semibold text-[#215a93] gap-5 mt-2   p-4 text-xs md:text-sm lg:text-lg">
                 <Link
                     as="button"
-                    className="hover:underline hover:text-blue-500"
+                    className="hover:underline hover:text-[#A02334]"
                     href="/"
                 >
                     Home
@@ -17,12 +17,12 @@ const Footer = ({ contact }) => {
                 <Link
                     as="button"
                     href="/"
-                    className="hover:underline hover:text-blue-500"
+                    className="hover:underline hover:text-[#A02334]"
                 >
                     Produk
                 </Link>
             </div>
-            <span className=" text-center lg:max-w-4xl text-zinc-200 text-xs mt-3 leading-6 mx-6 md:text-sm lg:text-lg lg:mx-40">
+            <span className=" text-center lg:max-w-4xl text-[#215a93] text-xs mt-3 leading-6 mx-6 md:text-sm lg:text-lg lg:mx-40">
                 Di sini, setiap kerang bercerita. Temukan keindahan dan keunikan kerajinan
                 tangan yang terinspirasi oleh lautan. Setiap produk adalah karya seni yang dibuat
                 dengan penuh cinta dan keahlian, menghadirkan sentuhan alam yang abadi ke dalam
@@ -30,7 +30,7 @@ const Footer = ({ contact }) => {
                 rumah Anda.
             </span>
 
-            <div className="flex gap-6 text-zinc-300 lg:gap-10 mt-4 lg:my-8">
+            <div className="flex gap-6 text-[#215a93] lg:gap-10 mt-4 lg:my-8">
                 <a target="_blank" href={`https://wa.me/${contact.phone_number}`}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -61,11 +61,11 @@ const Footer = ({ contact }) => {
                 </Link>
             </div>
             <div className="flex w-full justify-between items-center mt-5">
-                <span className=" w-1/3 bg-black h-12 rounded-tr-full"></span>
-                <span className=" text-xs text-center text-gray-300">
+                <span className=" w-1/3 bg-[#96CEB4] h-12 rounded-tr-full"></span>
+                <span className=" text-xs text-center text-[#215a93]">
                     Copyright © 2024, MEKAR SARI
                 </span>
-                <span className=" w-1/3 bg-black h-12 rounded-tl-full"></span>
+                <span className=" w-1/3 bg-[#96CEB4] h-12 rounded-tl-full"></span>
             </div>
         </footer>
     )

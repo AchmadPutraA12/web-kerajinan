@@ -62,7 +62,7 @@ const Create = ({ kategoris }) => {
           value: data.name,
           name: "name",
           type: "text",
-          placeholder: "Masukkan sub nama kategori produk",
+          placeholder: "Masukkan nama produk",
           onChange: (e) => {
             setData({
               ...data,

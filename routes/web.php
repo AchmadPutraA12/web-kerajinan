@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProdukAdminController;
 use App\Http\Controllers\Admin\TransaksiAdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\ProdukController;
+use App\Http\Controllers\User\TransaksiController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,8 +17,12 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 });
 
-Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
-Route::get('/produk/kategori/{id}', [ProdukController::class, 'show']);
+Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+Route::get('/produk/kategori/{id}', [ProdukController::class, 'show'])->name('produk.show');
+Route::get('/produk/{id}', [ProdukController::class, 'detail'])->name('produk.detail');
+Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
+Route::post('/transaksi/cart', [TransaksiController::class, 'cart'])->name('transaksi.cart');
+Route::get('/keranjang', [TransaksiController::class, 'index'])->name('keranjang.index');
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardAdminController::class, 'index'])->name('dashboard');
