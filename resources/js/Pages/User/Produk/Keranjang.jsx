@@ -4,7 +4,7 @@ import { FormatRupiah } from '@arismun/format-rupiah';
 import InputTextLabel from '@/Components/InputTextLabel';
 import { usePage, router } from '@inertiajs/react';
 
-const Keranjang = ({ contact }) => {
+const Keranjang = ({ contact, flash }) => {
     const [cartItems, setCartItems] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
     const [formData, setFormData] = useState({
@@ -70,9 +70,9 @@ const Keranjang = ({ contact }) => {
         }, {
             onSuccess: () => {
                 setShowPopup(false);
+                setCartItems([]);
                 localStorage.removeItem('cart');
                 window.dispatchEvent(new Event('cartUpdated'));
-                alert(`Pembelian berhasil dengan total harga ${FormatRupiah(totalPrice)}`);
             },
             onError: (errors) => {
                 console.error(errors);
@@ -92,7 +92,7 @@ const Keranjang = ({ contact }) => {
     };
 
     return (
-        <GuestLayout contact={contact} head="Keranjang">
+        <GuestLayout flash={flash} contact={contact} head="Keranjang">
             <div className="bg-gray-100 p-4 rounded-lg mb-4 mx-auto mt-32 max-w-screen-xl">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="p-4 bg-white rounded-lg shadow-md">

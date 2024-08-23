@@ -109,7 +109,6 @@ const Index = ({ produks, flash, kategoris, auth }) => {
         },
         {
             accessorKey: "price",
-            header: "Harga",
             header: ({ column }) => {
                 return (
                     <Button
