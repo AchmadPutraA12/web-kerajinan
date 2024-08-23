@@ -1,19 +1,19 @@
-import { Link, Head } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Button } from '@/Components/ui/button';
 import { ChevronRight } from "lucide-react";
-import Gedung from "../../../public/img/gedung.png";
+import Logo from "../../../public/Logo/kerajinan.png"
 import GuestLayout from '@/Layouts/GuestLayout';
 
 export default function Welcome({ contact }) {
     return (
         <>
             <GuestLayout contact={contact} head="Home">
-                <div className="w-full relative z-10 h-screen bg-[#09090C] grid grid-cols-1 lg:grid-cols-2">
-                    <div className="flex flex-col gap-4 z-30 justify-center h-screen lg:max-w-3xl px-10 md:px-14 lg:px-20">
-                        <h1 className=" text-3xl md:text-5xl lg:text-6xl font-bold text-zinc-200">
+                <div className="w-full relative z-10 h-screen bg-[#FFEEAD] grid grid-cols-1 lg:grid-cols-2">
+                    <div className="flex flex-col gap-4 z-30 justify-center h-full lg:max-w-3xl px-10 md:px-14 lg:px-20">
+                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#211f1f]">
                             Selamat Datang, di Mekar Sari
                         </h1>
-                        <h2 className="text-sm sm:text-base md:text-xl font-medium text-zinc-300">
+                        <h2 className="text-sm sm:text-base md:text-xl font-medium text-[#211f1f]">
                             "Di sini, setiap kerang bercerita. Temukan keindahan dan keunikan kerajinan
                             tangan yang terinspirasi oleh lautan. Setiap produk adalah karya seni yang dibuat
                             dengan penuh cinta dan keahlian, menghadirkan sentuhan alam yang abadi ke dalam
@@ -22,33 +22,35 @@ export default function Welcome({ contact }) {
                         </h2>
                         <Button
                             asChild
-                            className="bg-yellow-300 mt-5 w-52 text-black hover:bg-yellow-400 rounded-none"
+                            className="bg-[#ffffff] mt-5 w-52 text-black hover:bg-red-300 rounded-none"
                             size={"lg"}
                         >
                             <Link
                                 href="/produk"
-                                className=" text-lg flex items-center gap-1 font-semibold"
+                                className="text-lg flex items-center gap-1 font-semibold"
                             >
                                 <span>Cari Produk Disini</span>
-                                <ChevronRight size={20} className=" text-black" />
+                                <ChevronRight size={20} className="text-black" />
                             </Link>
                         </Button>
                     </div>
-                    {/*<img
-                        className=" absolute left-1/2 z-20 -translate-x-1/2 -bottom-24 lg:block lg:relative lg:left-0 lg:-translate-x-0 lg:bottom-0 opacity-60 lg:opacity-100"
-                        src={Gedung}
+                    <img
+                        className="absolute left-1/2 transform -translate-x-1/2 bottom-0 lg:left-auto lg:right-0 lg:bottom-0 lg:transform-none z-20 opacity-60 lg:opacity-100 max-w-[90%] lg:max-w-none"
+                        src={Logo}
                         alt=""
-                    />*/}
-                </div>{" "}
+                    />
+                </div>
+
+                {" "}
                 <div className="h-auto my-10 md:my-20 lg:my-40 bg-white flex justify-center items-center">
                     <div className="flex flex-col items-center">
                         <h2 className=" text-3xl md:text-5xl font-extrabold text-black">
                             Pelayanan Kami
                         </h2>
                         <div className="flex items-center mr-5 lg:mr-0 w-72 md:w-full justify-center flex-col lg:flex-row  gap-14 md:gap-16 lg:gap-20 mt-14 md:mt-16 lg:mt-20 lg:justify-around">
-                            <div className="p-4 bg-white shadow-[8px_8px_0px_1px_#f6e05e] w-full md:w-80 flex flex-col">
+                            <div className="p-4 bg-white shadow-[8px_8px_0px_1px_#96CEB4] w-full md:w-80 flex flex-col">
                                 <svg
-                                    className="p-2 rounded-full bg-yellow-300"
+                                    className="p-2 rounded-full bg-[#96CEB4]"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width={42}
                                     height={42}
@@ -74,9 +76,9 @@ export default function Welcome({ contact }) {
                                     </span>
                                 </div>
                             </div>{" "}
-                            <div className="p-4 bg-white shadow-[8px_8px_0px_1px_#f6e05e] w-full md:w-80 flex flex-col">
+                            <div className="p-4 bg-white shadow-[8px_8px_0px_1px_#96CEB4] w-full md:w-80 flex flex-col">
                                 <svg
-                                    className="p-2 rounded-full bg-yellow-300"
+                                    className="p-2 rounded-full bg-[#96CEB4]"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width={42}
                                     height={42}
@@ -97,9 +99,9 @@ export default function Welcome({ contact }) {
                                     </span>
                                 </div>
                             </div>{" "}
-                            <div className="p-4 bg-white shadow-[8px_8px_0px_1px_#f6e05e] w-full md:w-80 flex flex-col">
+                            <div className="p-4 bg-white shadow-[8px_8px_0px_1px_#96CEB4] w-full md:w-80 flex flex-col">
                                 <svg
-                                    className="p-2 rounded-full bg-yellow-300"
+                                    className="p-2 rounded-full bg-[#96CEB4]"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width={42}
                                     height={42}

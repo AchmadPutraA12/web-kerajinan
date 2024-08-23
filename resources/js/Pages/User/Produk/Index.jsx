@@ -67,7 +67,7 @@ export default function Index({ produks, kategoris, contact }) {
                         onKeyDown={handleKeyDown}
                     />
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> {/* Menggunakan grid Tailwind */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {filteredProducts && filteredProducts.map(product => (
                         <div key={product.id} className="p-4 rounded-xl border shadow-md">
                             <img className="object-contain w-full h-40 rounded-lg" src={`/storage/${product.image}`} alt={product.name} />

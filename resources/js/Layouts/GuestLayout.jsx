@@ -1,6 +1,6 @@
 import Navbar from '@/Components/user/Navbar'
 import { Head } from '@inertiajs/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Tooltip,
     TooltipContent,
@@ -8,13 +8,43 @@ import {
     TooltipTrigger,
 } from "@/Components/ui/tooltip";
 import Footer from '@/Components/user/Footer';
+import Toastify from '@/Components/Toastify';
+import { toast } from "react-toastify";
 
-const GuestLayout = ({ head, children, contact }) => {
+const GuestLayout = ({ head, children, contact, flash }) => {
+    useEffect(() => {
+        if (flash && flash?.error) {
+            toast.error(flash.error, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } else if (flash && flash?.success) {
+            toast.success(flash.success, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+    }, [flash]);
+
     return (
         <>
             <Head title={head} />
             <Navbar />
-            <div className="  mb-20 ">{children}</div>
+            {flash?.success && <Toastify />}
+            {flash?.error && <Toastify />}
+            <div className="mb-20">{children}</div>
             <TooltipProvider skipDelayDuration={500} delayDuration={300}>
                 <Tooltip>
                     <TooltipTrigger asChild>

@@ -52,6 +52,16 @@ class ProdukController extends Controller
         ]);
     }
 
+    public function detail(string $id)
+    {
+        $produks = Produk::findOrFail($id);
+
+        return Inertia::render('User/Produk/Detail', [
+            'produks' => $produks,
+            'kategoris' => KategoriProduk::all(),
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
