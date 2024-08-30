@@ -102,7 +102,7 @@ const AdminLayout = ({ head, children, tittleHead, tittleDesc, flash, user }) =>
             <NavbarAdmin searchTerm="searchTerm" user={user} />
             <aside
                 className={`
-                    p-4 hidden z-[100] border-r-2 lg:z-10 lg:flex  flex-col top-0 gap-4 h-screen fixed left-0 bg-gray-950 
+                    p-4 hidden z-[100] border-r-2 lg:z-10 lg:flex  flex-col top-0 gap-4 h-screen fixed left-0 bg-[#F8EDE3] 
                     ${handleSmallScreen ? "w-64" : "w-24"}
                 `}
             >
@@ -123,7 +123,7 @@ const AdminLayout = ({ head, children, tittleHead, tittleDesc, flash, user }) =>
                         onClick={() => setHandleSmallScreen(!handleSmallScreen)}
                     >
                         <ChevronLeft
-                            className={`bg-yellow-300 hover:scale-125 hover:border-[4.5px] transform duration-300 rounded-full size-8 top-0 -right-[29px] border-2 border-black absolute ${handleSmallScreen ? "" : "rotate-180"
+                            className={`bg-[#8D493A] text-white hover:scale-125 hover:border-[4.5px] transform duration-300 rounded-full size-8 top-0 -right-[29px] border-2 border-white absolute ${handleSmallScreen ? "" : "rotate-180"
                                 }`}
                         />
                     </button>
@@ -141,7 +141,7 @@ const AdminLayout = ({ head, children, tittleHead, tittleDesc, flash, user }) =>
                                 key={index}
                                 className="my-1 border-t mt-2 flex border-gray-300"
                             >
-                                <span className="text-gray-400 mt-4 text-xs">
+                                <span className="text-[#8D493A] mt-4 text-xs">
                                     {item.label}
                                 </span>
                             </li>
@@ -150,8 +150,8 @@ const AdminLayout = ({ head, children, tittleHead, tittleDesc, flash, user }) =>
                                 <Link
                                     href={item.href}
                                     className={`flex items-center gap-2 p-2 rounded-lg transform duration-100 ${window.location.pathname === item.href
-                                        ? "bg-yellow-300 font-semibold"
-                                        : "text-gray-400 hover:bg-gray-700 hover:text-yellow-300"
+                                        ? "bg-[#8D493A] text-white font-semibold"
+                                        : "text-[#8D493A] hover:bg-gray-700 hover:text-[#fdfdfd]"
                                         }`}
                                 >
                                     {handleSmallScreen ? (

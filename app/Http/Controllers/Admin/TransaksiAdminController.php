@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,7 +14,10 @@ class TransaksiAdminController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Transaksi/Index');
+        $transaksi = Transaksi::oldest('name')->get();
+        return Inertia::render('Admin/Transaksi/Index', [
+            'transaksis' => $transaksi,
+        ]);
     }
 
     /**
@@ -35,9 +39,11 @@ class TransaksiAdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
+    public function show(string $id) {
+        $transaksi = Transaksi::with('detailKategoris')->where('no_invoice', $id)->first();
+        return Inertia::render('Admin/Transaksi/Show', [
+            'transaksis' => $transaksi
+        ]);
     }
 
     /**
@@ -53,7 +59,16 @@ class TransaksiAdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $transaksi = Transaksi::findOrFail($id);
+
+        if ($request->has('status')) {
+            $transaksi->update([
+                'status' => $request->status
+            ]);
+            return back()->with('success', 'status transaksi berhasil diperbarui');
+        } else {
+            return back()->with('error', 'status transaksi gagal diperbarui');
+        }
     }
 
     /**
