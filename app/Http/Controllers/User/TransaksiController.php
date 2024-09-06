@@ -42,7 +42,7 @@ class TransaksiController extends Controller
             ],
         );
 
-        $token = "";
+        $token = "pa5kA2xeyK7X8P_p277C";
         $target = $request->phone;
 
         $curl = curl_init();
@@ -73,7 +73,7 @@ class TransaksiController extends Controller
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, 
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => array(
                 'target' => $target,
@@ -112,7 +112,7 @@ class TransaksiController extends Controller
     {
 
         try {
-            $token = "";
+            $token = "pa5kA2xeyK7X8P_p277C";
             $target = $request->phone;
 
             $curl = curl_init();

@@ -134,31 +134,30 @@ export default function Welcome({ contact }) {
                             Kontak Kami
                         </h2>
                         <span className="text-xl mt-4 lg:mt-10  font-medium text-zinc-500">
-                            Jika Anda ingin memberikan kami masukan, jangan ragu
-                            untuk menghubungi kami. Kami selalu senang mendengar
-                            dari Anda!
+                        Kami sangat senang jika Anda ingin menghubungi kami! 
+                        Apakah Anda memiliki pertanyaan tentang produk kami, butuh bantuan, atau ingin berbagi saran? <br />
+                        Tim kami selalu siap membantu Anda.
                         </span>{" "}
                         <span className="text-xl lg:text-3xl mt-8 font-semibold text-black">
                             Informasi Alamat Perusahaan
                         </span>
                         <div className="flex flex-col mt-6 gap-2">
                             <span>
-                                Jl. Babatan Gg. Balai RW No.15E, Dukuh Sutorejo,
-                                Kec. Mulyorejo
+                                Dusun Krojan Barat, Desa Klatakan, Kecamatan Kendit
                             </span>
                             <hr />
                         </div>{" "}
                         <div className="flex flex-col mt-4 gap-2">
-                            <span>Surabaya</span>
+                            <span>Situbondo</span>
                             <hr />
                         </div>{" "}
                         <div className="flex flex-col mt-4 gap-2">
-                            <span>Jawa Timur 60113</span>
+                            <span>Jawa Timur 68352</span>
                             <hr />
                         </div>
                     </div>
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15831.451945720195!2d112.7926541!3d-7.2564305!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f99ecba85e87%3A0x634c6570d194fd0d!2sZiqma%20collection!5e0!3m2!1sid!2sid!4v1716754660990!5m2!1sid!2sid"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d988.4543917437917!2d113.9232461588309!3d-7.702717409952286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd72642d1bdd291%3A0xb8d597e09b4ae849!2sKrojan%20Barat%2C%20Klatakan%2C%20Kec.%20Kendit%2C%20Kabupaten%20Situbondo%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1725608269153!5m2!1sid!2sid"
                         className="px-6 w-[340px] h-[280px] md:size-[400px] lg:size-[450px]"
                         loading="lazy"
                     ></iframe>

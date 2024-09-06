@@ -115,7 +115,7 @@ const NavbarAdmin = ({ user }) => {
                     <div className="items-center gap-3 cursor-pointer flex">
                         <img
                             className="w-9 h-9 rounded-full"
-                            src={`https://api.dicebear.com/5.x/initials/svg?seed=cemet`}
+                            src={`https://api.dicebear.com/5.x/initials/svg?seed=${user.name}`}
                             alt="User Avatar"
                         />
                         <div className="flex-col w-auto hidden md:flex">

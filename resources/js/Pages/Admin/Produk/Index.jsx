@@ -151,7 +151,7 @@ const Index = ({ produks, flash, kategoris, auth }) => {
             enableHiding: false,
             header: "Actions",
             cell: ({ row }) => {
-                const produk = row.original;
+                const produk = row.original; 
 
                 return (
                     <div className="flex items-center gap-2">
@@ -167,9 +167,9 @@ const Index = ({ produks, flash, kategoris, auth }) => {
 
     return (
         <AdminLayout
-            head="Kategori Produk"
-            tittleHead="Kategori Produk"
-            tittleDesc="Proses dan kegiatan yang dilakukan untuk mengelola data Kategori Produk dengan lebih efisien."
+            head="Produk"
+            tittleHead="Produk"
+            tittleDesc="Proses dan kegiatan yang dilakukan untuk mengelola data Produk dengan lebih efisien."
             flash={flash}
             user={auth.user}
         >
