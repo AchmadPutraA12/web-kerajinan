@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\KategoriProduk;
+use App\Models\Produk;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,7 +16,14 @@ class DashboardAdminController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Dashboard/Index');
+        $produk = Produk::count();
+        $kategori = KategoriProduk::count();
+        $transaksi = Transaksi::where('status', 'selesai')->sum('total_harga');
+        return Inertia::render('Admin/Dashboard/Index', [
+            'produkCount' => $produk,
+            'kategoriCount' => $kategori,
+            'totalPendapatan' => $transaksi,
+        ]);
     }
 
     /**

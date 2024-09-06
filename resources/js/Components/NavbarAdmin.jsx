@@ -69,7 +69,7 @@ const sidebarItems = [
 const NavbarAdmin = ({ user }) => {
 
     return (
-        <nav className="w-full h-20 z-[100] lg:z-10 bg-gray-900 lg:bg-gray-50 items-center top-0 fixed flex p-4 justify-between lg:justify-end">
+        <nav className="w-full h-20 z-[100] lg:z-10 bg-[#F8EDE3] lg:bg-gray-50 items-center top-0 fixed flex p-4 justify-between lg:justify-end">
             <div className="flex items-center gap-1 lg:hidden">
                 <Sheet>
                     <SheetTrigger asChild>
@@ -78,7 +78,7 @@ const NavbarAdmin = ({ user }) => {
                         </button>
                     </SheetTrigger>
                     <SheetContent
-                        className="bg-gray-900 border-none pt-24 flex flex-col gap-1.5 text-sm font-medium overflow-y-auto h-[100vh] scroll-me-12"
+                        className="bg-[#F8EDE3] border-none pt-24 flex flex-col gap-1.5 text-sm font-medium overflow-y-auto h-[100vh] scroll-me-12"
                         side={"left"}
                     >
                         {sidebarItems.map((item, index) =>
@@ -96,8 +96,8 @@ const NavbarAdmin = ({ user }) => {
                                     key={index}
                                     href={item.href}
                                     className={`flex items-center gap-2 p-2 rounded-lg transform duration-100 ${window.location.pathname === item.href
-                                        ? "bg-yellow-300 font-semibold"
-                                        : "text-gray-400 hover:bg-gray-800 hover:text-gray-300"
+                                        ? "bg-[#8D493A] text-white font-semibold"
+                                        : "text-[#8D493A] hover:bg-gray-700 hover:text-[#fdfdfd]"
                                         }`}
                                 >
                                     <div>{item.icon}</div>
@@ -115,7 +115,7 @@ const NavbarAdmin = ({ user }) => {
                     <div className="items-center gap-3 cursor-pointer flex">
                         <img
                             className="w-9 h-9 rounded-full"
-                            src={`https://api.dicebear.com/5.x/initials/svg?seed=cemet`}
+                            src={`https://api.dicebear.com/5.x/initials/svg?seed=${user.name}`}
                             alt="User Avatar"
                         />
                         <div className="flex-col w-auto hidden md:flex">

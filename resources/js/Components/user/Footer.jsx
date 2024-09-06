@@ -4,7 +4,7 @@ import Logo from "../../../../public/Logo/Logo.png";
 
 const Footer = ({ contact }) => {
     return (
-        <footer className=" w-full items-center bg-[#FFEEAD] flex flex-col gap-2 lg:pt-16">
+        <footer className=" w-full items-center bg-[#F8EDE3] flex flex-col gap-2 lg:pt-16">
             <img src={Logo} className="w-32 mt-5" alt="" />
             <div className="flex font-semibold text-[#215a93] gap-5 mt-2   p-4 text-xs md:text-sm lg:text-lg">
                 <Link
@@ -61,11 +61,11 @@ const Footer = ({ contact }) => {
                 </Link>
             </div>
             <div className="flex w-full justify-between items-center mt-5">
-                <span className=" w-1/3 bg-[#96CEB4] h-12 rounded-tr-full"></span>
+                <span className=" w-1/3 bg-[#8D493A] h-12 rounded-tr-full"></span>
                 <span className=" text-xs text-center text-[#215a93]">
                     Copyright © 2024, MEKAR SARI
                 </span>
-                <span className=" w-1/3 bg-[#96CEB4] h-12 rounded-tl-full"></span>
+                <span className=" w-1/3 bg-[#8D493A] h-12 rounded-tl-full"></span>
             </div>
         </footer>
     )

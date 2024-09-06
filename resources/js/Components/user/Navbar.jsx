@@ -25,7 +25,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="w-full z-50 py-2 bg-[#FFEEAD] px-2 md:px-8 lg:px-16 flex items-center justify-between top-0 fixed">
+        <nav className="w-full z-50 py-2 bg-[#F8EDE3] px-2 md:px-8 lg:px-16 flex items-center justify-between top-0 fixed">
             <Link href="/">
                 <img src={Logo} alt="logo" className="w-44 lg:w-52" />
             </Link>
