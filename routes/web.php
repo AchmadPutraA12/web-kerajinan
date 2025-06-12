@@ -7,15 +7,14 @@ use App\Http\Controllers\Admin\KategoriProdukAdminController;
 use App\Http\Controllers\Admin\ProdukAdminController;
 use App\Http\Controllers\Admin\TransaksiAdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\GuestController;
 use App\Http\Controllers\User\ProdukController;
 use App\Http\Controllers\User\TransaksiController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-});
+Route::get('/', [GuestController::class, 'index'])->name('home');
 
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/produk/kategori/{id}', [ProdukController::class, 'show'])->name('produk.show');

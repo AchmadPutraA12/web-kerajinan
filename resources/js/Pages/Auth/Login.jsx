@@ -6,7 +6,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'; // Importing eye icons
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import AuthLayout from '@/Layouts/AuthLayout';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
@@ -21,7 +21,6 @@ export default function Login({ status, canResetPassword }) {
     const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
-        // Retrieve email and password from local storage if remember me was checked
         const rememberMe = localStorage.getItem('rememberMe');
         const rememberedEmail = localStorage.getItem('rememberedEmail');
         const rememberedPassword = localStorage.getItem('rememberedPassword');
@@ -33,7 +32,7 @@ export default function Login({ status, canResetPassword }) {
                 remember: true,
             });
         }
-    }, []); // Ensure this effect runs only once on component mount
+    }, []);
 
     const submit = (e) => {
         e.preventDefault();
@@ -41,11 +40,11 @@ export default function Login({ status, canResetPassword }) {
         if (data.remember) {
             localStorage.setItem('rememberMe', 'true');
             localStorage.setItem('rememberedEmail', data.email);
-            localStorage.setItem('rememberedPassword', data.password); // Store password
+            localStorage.setItem('rememberedPassword', data.password);
         } else {
             localStorage.removeItem('rememberMe');
             localStorage.removeItem('rememberedEmail');
-            localStorage.removeItem('rememberedPassword'); // Remove password
+            localStorage.removeItem('rememberedPassword');
         }
 
         post(route('login'), {
@@ -110,26 +109,6 @@ export default function Login({ status, canResetPassword }) {
                         <InputError message={errors.password} className="mt-2 text-red-600" />
                     </div>
 
-                    <div className="flex items-center justify-between">
-                        <label className="flex items-center">
-                            <Checkbox
-                                name="remember"
-                                checked={data.remember}
-                                onChange={(e) => setData('remember', e.target.checked)}
-                            />
-                            <span className="ml-2 text-sm text-gray-600">Remember me</span>
-                        </label>
-
-                        {canResetPassword && (
-                            <Link
-                                href={route('password.request')}
-                                className="text-sm text-indigo-600 hover:text-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Forgot your password?
-                            </Link>
-                        )}
-                    </div>
-
                     <div className="flex items-center justify-end mt-4">
                         <PrimaryButton
                             className="bg-indigo-600 hover:bg-indigo-700 focus:ring focus:ring-indigo-200 transition duration-200"
@@ -137,6 +116,16 @@ export default function Login({ status, canResetPassword }) {
                         >
                             Log in
                         </PrimaryButton>
+                    </div>
+
+                    <div className="flex items-center justify-center mt-4">
+                        <span className="text-sm text-gray-600 mr-1">Tidak punya akun?</span>
+                        <Link
+                            href={route('register')}
+                            className="text-sm text-indigo-600 hover:text-indigo-800 font-semibold"
+                        >
+                            Daftar
+                        </Link>
                     </div>
                 </form>
             </div>
