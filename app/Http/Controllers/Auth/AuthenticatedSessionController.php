@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -29,11 +31,30 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
 
-        $request->session()->regenerate();
+        $user = User::where('email', $request->email)->first();
 
-        return redirect()->intended(route('admin.dashboard', absolute: false))->with('success', 'Login berhasil!');
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::login($user);
+
+            $request->session()->regenerate();
+
+            switch ($user->category_id) {
+                case 1:
+                    return redirect()->intended(route('admin.dashboard'))->with('success', 'Login Berhasil');
+                case 2:
+                    return redirect()->intended(route('home'))->with('success', 'Login Berhasil');
+                default:
+                    Auth::logout();
+                    return redirect()->back()->with('errors', 'Akun Anda tidak memiliki akses.');
+            }
+        }
+
+        return redirect()->back()->with('error', 'Akun Anda tidak valid.');
     }
 
     /**
