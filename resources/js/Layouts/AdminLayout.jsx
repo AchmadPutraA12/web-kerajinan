@@ -50,11 +50,6 @@ const sidebarItems = [
         href: "/admin/kontak-admin",
         icon: <Headphones size={20} />,
     },
-    {
-        label: "Backup",
-        href: "/admin/backup",
-        icon: <DatabaseBackupIcon size={20} />,
-    },
 ];
 
 const AdminLayout = ({ head, children, tittleHead, tittleDesc, flash, user }) => {

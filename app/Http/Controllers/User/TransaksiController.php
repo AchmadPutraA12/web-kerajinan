@@ -7,6 +7,7 @@ use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TransaksiController extends Controller
@@ -17,6 +18,14 @@ class TransaksiController extends Controller
     public function index()
     {
         return Inertia::render('User/Produk/Keranjang');
+    }
+
+    public function indexTransaksi()
+    {
+        $transaksi = Transaksi::oldest('name')->where('user_id', Auth::user()->id)->get();
+        return Inertia::render('User/Transaksi/Index', [
+            'transaksis' => $transaksi,
+        ]);
     }
 
     /**
@@ -32,13 +41,10 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate(
             [
-                'name' => 'required',
                 'phone' => 'required',
                 'address' => 'required',
-                'email' => 'nullable',
             ],
         );
 
@@ -73,7 +79,7 @@ class TransaksiController extends Controller
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, 
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => array(
                 'target' => $target,
@@ -89,11 +95,12 @@ class TransaksiController extends Controller
         $invoice = mt_rand(1000000, 9999999);
 
         $transaksi = Transaksi::create([
-            'name' => $request->name,
+            'user_id' => Auth::user()->id,
+            'name' => Auth::user()->name,
             'no_invoice' => 'INV-' . $invoice,
             'phone' => $request->phone,
             'address' => $request->address,
-            'email' => $request->email,
+            'email' => Auth::user()->email,
             'total_harga' => $request->price,
         ]);
 
@@ -110,7 +117,6 @@ class TransaksiController extends Controller
 
     public function cart(Request $request)
     {
-
         try {
             $token = "pa5kA2xeyK7X8P_p277C";
             $target = $request->phone;
@@ -120,7 +126,7 @@ class TransaksiController extends Controller
             $message = "Halo! Terima kasih telah berbelanja di Mekar Sari 🌸\n\n";
             $message .= "Kami senang menerima pesanan Anda! 🎉 Berikut detail pesanan Anda:\n\n";
             foreach ($request->cartItems as $item) {
-                $message .= $item['name'] . " - " . $item['quantity'] ." pcs\n";
+                $message .= $item['name'] . " - " . $item['quantity'] . " pcs\n";
             }
             $message .= "Total Pesanan: Rp. " . number_format($request->totalPrice, 2, ",", ".") . "\n";
             $message .= "Ongkos Kirim: Rp[Biaya Pengiriman]\n";
@@ -161,11 +167,12 @@ class TransaksiController extends Controller
             $invoice = mt_rand(1000000, 9999999);
 
             $transaksi = Transaksi::create([
-                'name' => $request->name,
+                'user_id' => Auth::user()->id,
+                'name' => Auth::user()->name,
                 'no_invoice' => 'INV-' . $invoice,
                 'phone' => $request->phone,
                 'address' => $request->address,
-                'email' => $request->email,
+                'email' => Auth::user()->email,
                 'total_harga' => $request->totalPrice,
             ]);
 
@@ -190,7 +197,10 @@ class TransaksiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $transaksi = Transaksi::with('detailKategoris')->where('no_invoice', $id)->first();
+        return Inertia::render('User/Transaksi/Show', [
+            'transaksis' => $transaksi
+        ]);
     }
 
     /**

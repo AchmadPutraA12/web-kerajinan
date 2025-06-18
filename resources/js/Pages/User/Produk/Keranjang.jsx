@@ -8,14 +8,13 @@ const Keranjang = ({ contact, flash }) => {
     const [cartItems, setCartItems] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
     const [formData, setFormData] = useState({
-        name: '',
         phone: '',
         address: '',
-        email: ''
     });
     const { props } = usePage();
     const errors = props?.errors || {};
-
+    const { auth } = usePage().props;
+    const user = auth?.user;
     useEffect(() => {
         const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
         setCartItems(storedCart);
@@ -43,6 +42,10 @@ const Keranjang = ({ contact, flash }) => {
     const totalPrice = cartItems.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0);
 
     const handleCheckout = () => {
+        if (!user) {
+            router.visit('/login');
+            return;
+        }
         setShowPopup(true);
     };
 
@@ -88,7 +91,7 @@ const Keranjang = ({ contact, flash }) => {
     };
 
     const isFormValid = () => {
-        return formData.name && formData.phone && formData.address;
+        return formData.phone && formData.address;
     };
 
     return (
@@ -145,21 +148,6 @@ const Keranjang = ({ contact, flash }) => {
                         <form onSubmit={handleSubmit}>
                             <InputTextLabel
                                 variant={"wajib"}
-                                labelFor="name"
-                                labelText="Nama Pembeli"
-                                error={errors && errors.name ? errors.name : ""}
-                                inputId="name"
-                                inputProps={{
-                                    value: formData.name,
-                                    name: "name",
-                                    type: "text",
-                                    placeholder: "Masukkan Nama",
-                                    onChange: handleChange,
-                                }}
-                            />
-
-                            <InputTextLabel
-                                variant={"wajib"}
                                 labelFor="phone"
                                 labelText="No. Telepon"
                                 error={errors && errors.phone ? errors.phone : ""}
@@ -184,21 +172,6 @@ const Keranjang = ({ contact, flash }) => {
                                     name: "address",
                                     type: "text",
                                     placeholder: "Masukkan Alamat",
-                                    onChange: handleChange,
-                                }}
-                            />
-
-                            <InputTextLabel
-                                variant={"opsional"}
-                                labelFor="email"
-                                labelText="Email (Opsional)"
-                                error={errors && errors.email ? errors.email : ""}
-                                inputId="email"
-                                inputProps={{
-                                    value: formData.email,
-                                    name: "email",
-                                    type: "email",
-                                    placeholder: "Masukkan Email",
                                     onChange: handleChange,
                                 }}
                             />

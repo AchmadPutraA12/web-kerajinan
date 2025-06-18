@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id('id');
+            $table->integer('user_id');
             $table->string('no_invoice');
             $table->string('name');
             $table->string('phone');

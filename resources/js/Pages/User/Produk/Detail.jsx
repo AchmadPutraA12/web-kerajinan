@@ -1,19 +1,20 @@
 import InputTextLabel from '@/Components/InputTextLabel';
 import ProductLayout from '@/Layouts/ProductLayout';
 import { FormatRupiah } from '@arismun/format-rupiah';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { ShoppingCart } from 'lucide-react';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState } from 'react';
 
 const Detail = ({ produks, contact, kategoris, errors: initialErrors, flash }) => {
+    const { auth } = usePage().props;
+    const user = auth?.user;
+
     const [showPopup, setShowPopup] = useState(false);
     const [formData, setFormData] = useState({
-        name: '',
         phone: '',
         address: '',
-        email: ''
     });
     const [errors, setErrors] = useState(initialErrors || {});
 
@@ -24,13 +25,24 @@ const Detail = ({ produks, contact, kategoris, errors: initialErrors, flash }) =
         });
     };
 
+    const handleAddToCart = () => {
+        if (!user) {
+            router.visit('/login');
+            return;
+        }
+        addToCart(produks);
+        toast.success("Produk ditambahkan ke keranjang!");
+    };
+
     const handleBuyClick = () => {
+        if (!user) {
+            router.visit('/login');
+            return;
+        }
         setShowPopup(true);
     };
 
-    const handleCancel = () => {
-        setShowPopup(false);
-    };
+    const handleCancel = () => setShowPopup(false);
 
     const handleTelpChange = (e) => {
         const value = e.target.value;
@@ -61,7 +73,7 @@ const Detail = ({ produks, contact, kategoris, errors: initialErrors, flash }) =
     };
 
     const isFormValid = () => {
-        return formData.name && formData.phone && formData.address;
+        return formData.phone && formData.address;
     };
 
     const addToCart = (item) => {
@@ -99,7 +111,10 @@ const Detail = ({ produks, contact, kategoris, errors: initialErrors, flash }) =
                     </div>
                 </div>
                 <div className="mt-6 flex justify-between">
-                    <button onClick={() => addToCart(produks)} className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition duration-200">
+                    <button
+                        onClick={handleAddToCart}
+                        className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition duration-200"
+                    >
                         <ShoppingCart />
                     </button>
                     <button
@@ -112,25 +127,10 @@ const Detail = ({ produks, contact, kategoris, errors: initialErrors, flash }) =
             </div>
 
             {showPopup && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
                         <h2 className="text-xl font-semibold mb-4">Informasi Pembeli</h2>
                         <form onSubmit={handleSubmit}>
-                            <InputTextLabel
-                                variant={"wajib"}
-                                labelFor="name"
-                                labelText="Nama Pembeli"
-                                error={errors && errors.name ? errors.name : ""}
-                                inputId="name"
-                                inputProps={{
-                                    value: formData.name,
-                                    name: "name",
-                                    type: "text",
-                                    placeholder: "Masukkan Nama",
-                                    onChange: handleChange,
-                                }}
-                            />
-
                             <InputTextLabel
                                 variant={"wajib"}
                                 labelFor="phone"
@@ -145,7 +145,6 @@ const Detail = ({ produks, contact, kategoris, errors: initialErrors, flash }) =
                                     onChange: handleTelpChange,
                                 }}
                             />
-
                             <InputTextLabel
                                 variant={"wajib"}
                                 labelFor="address"
@@ -157,21 +156,6 @@ const Detail = ({ produks, contact, kategoris, errors: initialErrors, flash }) =
                                     name: "address",
                                     type: "text",
                                     placeholder: "Masukkan Alamat",
-                                    onChange: handleChange,
-                                }}
-                            />
-
-                            <InputTextLabel
-                                variant={"opsional"}
-                                labelFor="email"
-                                labelText="Email (Opsional)"
-                                error={errors && errors.email ? errors.email : ""}
-                                inputId="email"
-                                inputProps={{
-                                    value: formData.email,
-                                    name: "email",
-                                    type: "email",
-                                    placeholder: "Masukkan Email",
                                     onChange: handleChange,
                                 }}
                             />

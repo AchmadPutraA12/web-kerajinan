@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Logo from "../../../../public/Logo/Logo.png";
-import { Link } from "@inertiajs/react";
+import { Link, usePage, router } from "@inertiajs/react";
 import { ShoppingCart } from "lucide-react";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [cartCount, setCartCount] = useState(0);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+
+    const { auth } = usePage().props;
+    const user = auth?.user;
 
     useEffect(() => {
         const updateCartCount = () => {
@@ -20,8 +25,26 @@ const Navbar = () => {
         };
     }, []);
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownOpen(false);
+            }
+        }
+        if (dropdownOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [dropdownOpen]);
+
+    const toggleMenu = () => setIsOpen(!isOpen);
+    const handleDropdown = () => setDropdownOpen(!dropdownOpen);
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        router.post("/logout");
     };
 
     return (
@@ -78,6 +101,28 @@ const Navbar = () => {
                         <div className="w-[130%] -translate-x-2 h-px absolute  -bottom-2 bg-[#800000]"></div>
                     ) : null}
                 </li>
+                {user ? (
+                    <li className="flex flex-col relative">
+                        <Link
+                            href="/transaksi"
+                            className={`${window.location.pathname.startsWith("/transaksi")
+                                ? "text-[#800000] font-medium"
+                                : null
+                                }`}
+                        >
+                            Transaksi
+                        </Link>
+                        {window.location.pathname.startsWith("/transaksi") ? (
+                            <div className="w-[130%] -translate-x-2 h-px absolute  -bottom-2 bg-[#800000]"></div>
+                        ) : null}
+                    </li>
+
+                ) : (
+                    <>
+
+                    </>
+                )}
+
                 <li className="flex flex-col relative">
                     <Link
                         href="/keranjang"
@@ -99,10 +144,53 @@ const Navbar = () => {
                         <div className="w-[170%] -translate-x-2 h-px absolute  -bottom-2 bg-[#800000]"></div>
                     ) : null}
                 </li>
+                <li className="ml-2 flex items-center relative" ref={dropdownRef}>
+                    {!user ? (
+                        <Link
+                            href="/login"
+                            className="bg-[#A02334] text-white px-4 py-2 rounded-md hover:bg-[#800000] transition"
+                        >
+                            Login
+                        </Link>
+                    ) : (
+                        <>
+                            <button
+                                className="flex items-center gap-2 px-3 py-2 rounded hover:bg-[#FFE5B4] transition"
+                                onClick={handleDropdown}
+                            >
+                                <span className="font-semibold">{user.name}</span>
+                                <svg
+                                    className={`w-4 h-4 transition-transform ${dropdownOpen ? "rotate-180" : ""}`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            {dropdownOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-20">
+                                    <div className="px-4 py-2 border-b text-sm text-gray-700">
+                                        <div>{user.name}</div>
+                                        <div className="text-xs text-gray-500">{user.email}</div>
+                                    </div>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="block w-full text-left px-4 py-2 text-[#A02334] hover:bg-gray-100"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </li>
             </ul>
 
             {isOpen && (
-                <ul className="absolute top-full left-0 w-full bg-[#FFEEAD] text-[#215a93] flex flex-col items-start px-2 py-4 md:hidden">
+                <ul className="absolute top-full left-0 w-full bg-[#FFEEAD] text-[#215a93] flex flex-col items-start px-2 py-4 md:hidden z-40">
                     <li className="w-full">
                         <Link
                             href="/"
@@ -114,8 +202,6 @@ const Navbar = () => {
                         >
                             Home
                         </Link>
-                    </li>
-                    <li className="w-full">
                         <Link
                             href="/produk"
                             className={`block py-2 px-4 ${window.location.pathname.startsWith("/produk")
@@ -126,8 +212,22 @@ const Navbar = () => {
                         >
                             Produk
                         </Link>
-                    </li>
-                    <li className="w-full">
+                        {user ? (
+                            <Link
+                                href="/transaksi"
+                                className={`block py-2 px-4 ${window.location.pathname.startsWith("/transaksi")
+                                    ? "text-[#800000] font-medium"
+                                    : ""
+                                    }`}
+                                onClick={toggleMenu}
+                            >
+                                Transaksi
+                            </Link>
+                        ) : (
+                            <>
+
+                            </>
+                        )}
                         <Link
                             href="/keranjang"
                             className={`block py-2 px-4 ${window.location.pathname === "/keranjang"
@@ -144,6 +244,52 @@ const Navbar = () => {
                             )}
                         </Link>
                     </li>
+                    {!user ? (
+                        <li className="w-full">
+                            <Link
+                                href="/"
+                                className={`block py-2 px-4 ${window.location.pathname === "/"
+                                    ? "text-[#800000] font-medium"
+                                    : ""
+                                    }`}
+                                onClick={toggleMenu}
+                            >
+                                Home
+                            </Link>
+                            <Link
+                                href="/produk"
+                                className={`block py-2 px-4 ${window.location.pathname.startsWith("/produk")
+                                    ? "text-[#800000] font-medium"
+                                    : ""
+                                    }`}
+                                onClick={toggleMenu}
+                            >
+                                Produk
+                            </Link>
+                            <Link
+                                href="/login"
+                                className="block py-2 px-4 bg-[#A02334] text-white rounded hover:bg-[#800000] mt-2"
+                                onClick={toggleMenu}
+                            >
+                                Login
+                            </Link>
+                        </li>
+                    ) : (
+                        <>
+                            <li className="w-full px-4 py-2">
+                                <div className="font-semibold">{user.name}</div>
+                                <div className="text-xs text-gray-500">{user.email}</div>
+                            </li>
+                            <li className="w-full">
+                                <button
+                                    onClick={handleLogout}
+                                    className="block w-full text-left px-4 py-2 text-[#A02334] hover:bg-gray-100"
+                                >
+                                    Logout
+                                </button>
+                            </li>
+                        </>
+                    )}
                 </ul>
             )}
         </nav>

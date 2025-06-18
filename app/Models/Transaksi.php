@@ -17,6 +17,7 @@ class Transaksi extends Model
         'email',
         'total_harga',
         'status',
+        'user_id',
     ];
 
     public function detailKategoris(){
