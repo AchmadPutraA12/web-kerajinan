@@ -43,8 +43,12 @@ class TransaksiController extends Controller
     {
         $request->validate(
             [
-                'phone' => 'required',
-                'address' => 'required',
+                'phone' => ['required', 'string', 'regex:/^0[0-9]{9,11}$/'],
+                'kode_pos' => ['required', 'string', 'digits_between:4,8'],
+                'nama_jalan' => ['required', 'string', 'max:255'],
+                'no_rumah' => ['required', 'string', 'max:20'],
+                'detail_lainnya' => ['nullable', 'string', 'max:255'],
+                'address' => ['required', 'string', 'max:255'],
             ],
         );
 
@@ -102,6 +106,11 @@ class TransaksiController extends Controller
             'address' => $request->address,
             'email' => Auth::user()->email,
             'total_harga' => $request->price,
+            'kode_pos' => $request->kode_pos,
+            'nama_jalan' => $request->nama_jalan,
+            'no_rumah' => $request->no_rumah,
+            'detail_lainnya' => $request->detail_lainnya,
+
         ]);
 
         DetailTransaksi::create([
@@ -117,6 +126,17 @@ class TransaksiController extends Controller
 
     public function cart(Request $request)
     {
+        $request->validate(
+            [
+                'phone' => ['required', 'string', 'regex:/^0[0-9]{9,11}$/'],
+                'kode_pos' => ['required', 'string', 'digits_between:4,8'],
+                'nama_jalan' => ['required', 'string', 'max:255'],
+                'no_rumah' => ['required', 'string', 'max:20'],
+                'detail_lainnya' => ['nullable', 'string', 'max:255'],
+                'address' => ['required', 'string', 'max:255'],
+            ],
+        );
+
         try {
             $token = "pa5kA2xeyK7X8P_p277C";
             $target = $request->phone;
@@ -174,6 +194,10 @@ class TransaksiController extends Controller
                 'address' => $request->address,
                 'email' => Auth::user()->email,
                 'total_harga' => $request->totalPrice,
+                'kode_pos' => $request->kode_pos,
+                'nama_jalan' => $request->nama_jalan,
+                'no_rumah' => $request->no_rumah,
+                'detail_lainnya' => $request->detail_lainnya,
             ]);
 
             // dd($request->cartItems);

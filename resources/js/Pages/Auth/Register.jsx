@@ -13,6 +13,7 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
+        nama_lengkap: '',
         password: '',
         password_confirmation: '',
     });
@@ -23,7 +24,7 @@ export default function Register() {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('register'), {
+        post(route('register.store'), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
@@ -42,12 +43,27 @@ export default function Register() {
                             type="text"
                             name="name"
                             value={data.name}
-                            placeholder="Masukkan Email Yang Telah Terdaftar"
+                            placeholder="Masukkan Nama Yang ingin didaftarkan"
                             className="mt-1 block w-full border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:border-indigo-500 transition duration-200"
-                            autoComplete="username"
                             onChange={(e) => setData('name', e.target.value)}
                         />
                         <InputError message={errors.name} className="mt-2 text-red-600" />
+                    </div>
+
+                    <div>
+                        <Label variant="wajib" htmlFor="nama_lengkap">
+                            Nama Lengkap
+                        </Label>
+                        <Input
+                            id="nama_lengkap"
+                            type="text"
+                            name="nama_lengkap"
+                            value={data.nama_lengkap}
+                            placeholder="Masukkan Nama Lengkap Yang akan Di daftarkan"
+                            className="mt-1 block w-full border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:border-indigo-500 transition duration-200"
+                            onChange={(e) => setData('nama_lengkap', e.target.value)}
+                        />
+                        <InputError message={errors.nama_lengkap} className="mt-2 text-red-600" />
                     </div>
 
                     <div>
@@ -59,9 +75,8 @@ export default function Register() {
                             type="email"
                             name="email"
                             value={data.email}
-                            placeholder="Masukkan Email Yang Telah Terdaftar"
+                            placeholder="Masukkan Email Yang ingin didaftarkan"
                             className="mt-1 block w-full border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:border-indigo-500 transition duration-200"
-                            autoComplete="username"
                             onChange={(e) => setData('email', e.target.value)}
                         />
                         <InputError message={errors.email} className="mt-2 text-red-600" />

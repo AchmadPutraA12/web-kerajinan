@@ -9,18 +9,10 @@ class Transaksi extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'no_invoice',
-        'name',
-        'phone',
-        'address',
-        'email',
-        'total_harga',
-        'status',
-        'user_id',
-    ];
+    public $guarded = ['id'];
 
-    public function detailKategoris(){
+    public function detailKategoris()
+    {
         return $this->hasMany(DetailTransaksi::class, 'transaksi_id');
     }
 }

@@ -14,7 +14,7 @@ class TransaksiAdminController extends Controller
      */
     public function index()
     {
-        $transaksi = Transaksi::oldest('name')->get();
+        $transaksi = Transaksi::orderBy('created_at', 'desc')->get();
         return Inertia::render('Admin/Transaksi/Index', [
             'transaksis' => $transaksi,
         ]);

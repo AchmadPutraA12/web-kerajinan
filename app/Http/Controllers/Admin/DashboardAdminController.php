@@ -8,6 +8,7 @@ use App\Models\Produk;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class DashboardAdminController extends Controller
 {
@@ -18,11 +19,23 @@ class DashboardAdminController extends Controller
     {
         $produk = Produk::count();
         $kategori = KategoriProduk::count();
-        $transaksi = Transaksi::where('status', 'selesai')->sum('total_harga');
+        $totalPendapatan = Transaksi::where('status', 'selesai')->sum('total_harga');
+
+        // Ambil pendapatan per bulan dari transaksi selesai
+        $pendapatanPerBulan = Transaksi::select(
+            DB::raw("DATE_FORMAT(created_at, '%Y-%m') as bulan"),
+            DB::raw("SUM(total_harga) as total")
+        )
+            ->where('status', 'selesai')
+            ->groupBy('bulan')
+            ->orderBy('bulan')
+            ->get();
+
         return Inertia::render('Admin/Dashboard/Index', [
             'produkCount' => $produk,
             'kategoriCount' => $kategori,
-            'totalPendapatan' => $transaksi,
+            'totalPendapatan' => $totalPendapatan,
+            'pendapatanPerBulan' => $pendapatanPerBulan, // kirim ke frontend
         ]);
     }
 

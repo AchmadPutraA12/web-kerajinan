@@ -55,32 +55,42 @@ const Keranjang = ({ contact, flash }) => {
 
     const handleTelpChange = (e) => {
         const value = e.target.value;
-        if (/^\d*$/.test(value)) {
-            setFormData({
-                ...formData,
-                phone: value
-            });
+        if (/^\d*$/.test(value) && value.length <= 12) {
+            if (value === '' || value.startsWith('0')) {
+                setFormData({
+                    ...formData,
+                    phone: value
+                });
+            }
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        router.post(route('transaksi.cart'), {
-            ...formData,
-            cartItems,
-            totalPrice,
-        }, {
-            onSuccess: () => {
-                setShowPopup(false);
-                setCartItems([]);
-                localStorage.removeItem('cart');
-                window.dispatchEvent(new Event('cartUpdated'));
-            },
-            onError: (errors) => {
-                console.error(errors);
-            }
-        });
+        if (isFormValid()) {
+            router.post(route('transaksi.cart'), {
+                ...formData,
+                cartItems,
+                totalPrice,
+            }, {
+                onSuccess: () => {
+                    setShowPopup(false);
+                    setFormData({
+                        phone: '',
+                        address: '',
+                        kode_pos: '',
+                        nama_jalan: '',
+                        no_rumah: '',
+                        detail_lainnya: '',
+                    });
+                    setShowPopup(false);
+                    setCartItems([]);
+                    localStorage.removeItem('cart');
+                    window.dispatchEvent(new Event('cartUpdated'));
+                }
+            });
+        }
     };
 
     const handleChange = (e) => {
@@ -172,6 +182,66 @@ const Keranjang = ({ contact, flash }) => {
                                     name: "address",
                                     type: "text",
                                     placeholder: "Masukkan Alamat",
+                                    onChange: handleChange,
+                                }}
+                            />
+
+                            <InputTextLabel
+                                variant={"wajib"}
+                                labelFor="kode_pos"
+                                labelText="Kode Pos"
+                                error={errors && errors.kode_pos ? errors.kode_pos : ""}
+                                inputId="kode_pos"
+                                inputProps={{
+                                    value: formData.kode_pos,
+                                    name: "kode_pos",
+                                    type: "text",
+                                    placeholder: "Masukkan Kode Pos",
+                                    onChange: handleChange,
+                                }}
+                            />
+
+                            <InputTextLabel
+                                variant={"wajib"}
+                                labelFor="nama_jalan"
+                                labelText="Nama Jalan"
+                                error={errors && errors.nama_jalan ? errors.nama_jalan : ""}
+                                inputId="nama_jalan"
+                                inputProps={{
+                                    value: formData.nama_jalan,
+                                    name: "nama_jalan",
+                                    type: "text",
+                                    placeholder: "Masukkan Nama Jalan",
+                                    onChange: handleChange,
+                                }}
+                            />
+
+                            <InputTextLabel
+                                variant={"wajib"}
+                                labelFor="no_rumah"
+                                labelText="No Rumah"
+                                error={errors && errors.no_rumah ? errors.no_rumah : ""}
+                                inputId="no_rumah"
+                                inputProps={{
+                                    value: formData.no_rumah,
+                                    name: "no_rumah",
+                                    type: "text",
+                                    placeholder: "Masukkan No Rumah",
+                                    onChange: handleChange,
+                                }}
+                            />
+
+                            <InputTextLabel
+                                variant={"optionals"}
+                                labelFor="detail_lainnya"
+                                labelText="Detail Lainnya"
+                                error={errors && errors.detail_lainnya ? errors.detail_lainnya : ""}
+                                inputId="detail_lainnya"
+                                inputProps={{
+                                    value: formData.detail_lainnya,
+                                    name: "detail_lainnya",
+                                    type: "text",
+                                    placeholder: "Masukkan Detail Lainnya",
                                     onChange: handleChange,
                                 }}
                             />
