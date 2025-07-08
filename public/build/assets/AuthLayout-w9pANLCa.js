@@ -1,0 +1,1 @@
+import{j as e}from"./app-DWmV3naq.js";const t=({children:s})=>e.jsx("div",{className:"flex flex-col min-h-screen bg-gray-100",children:e.jsx("main",{className:"flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8",children:s})}),l=t;export{l as A};
