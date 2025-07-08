@@ -23,12 +23,12 @@ Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaks
 Route::post('/transaksi/cart', [TransaksiController::class, 'cart'])->name('transaksi.cart');
 Route::get('/keranjang', [TransaksiController::class, 'index'])->name('keranjang.index');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('web','auth')->group(function () {
     Route::get('/transaksi', [TransaksiController::class, 'indexTransaksi'])->name('transaksi.index');
     Route::get('/transaksi/{id}', [TransaksiController::class, 'show'])->name('transaksi.show');
 });
 
-Route::middleware('auth', 'CekCategory:1')->prefix('admin')->name('admin.')->group(function () {
+Route::middleware('web','auth', 'CekCategory:1')->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardAdminController::class, 'index'])->name('dashboard');
     Route::resource('transaksi', TransaksiAdminController::class)->names('transaksi');
     Route::resource('kategori-produk', KategoriProdukAdminController::class)->names('kategori-produk');
